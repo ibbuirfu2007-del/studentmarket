@@ -5,21 +5,14 @@ app = Flask(__name__)
 app.secret_key = "student_market_secret_key"
 
 
-# -------------------------------------------------
-# MySQL Connection
-# -------------------------------------------------
 def get_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="irfan",      # Change to your MySQL password
+        password="irfan",      
         database="studentmarket"
     )
 
-
-# -------------------------------------------------
-# Home
-# -------------------------------------------------
 @app.route("/")
 def home():
 
@@ -29,9 +22,6 @@ def home():
     return redirect("/login")
 
 
-# -------------------------------------------------
-# Register
-# -------------------------------------------------
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -85,9 +75,6 @@ def register():
     return render_template("register.html")
 
 
-# -------------------------------------------------
-# Login
-# -------------------------------------------------
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -123,9 +110,7 @@ def login():
         flash("Invalid Email or Password")
 
     return render_template("login.html")
-# -------------------------------------------------
-# Dashboard
-# -------------------------------------------------
+
 @app.route("/dashboard")
 def dashboard():
 
@@ -158,12 +143,7 @@ def dashboard():
         "dashboard.html",
         products=products
     )
-# -------------------------------------------------
-# Add Product
-# -------------------------------------------------
-# ---------------------------------
-# Add Product
-# ---------------------------------
+
 @app.route("/add_product", methods=["GET", "POST"])
 def add_product():
 
@@ -204,9 +184,7 @@ def add_product():
         return redirect("/dashboard")
 
     return render_template("add_product.html")
-# -------------------------------------------------
-# Edit Product
-# -------------------------------------------------
+
 @app.route("/edit_product/<int:id>", methods=["GET", "POST"])
 def edit_product(id):
 
@@ -277,9 +255,6 @@ def edit_product(id):
     )
 
 
-# -------------------------------------------------
-# Delete Product
-# -------------------------------------------------
 @app.route("/delete_product/<int:id>")
 def delete_product(id):
 
@@ -307,9 +282,7 @@ def delete_product(id):
     flash("Product Deleted Successfully")
 
     return redirect("/dashboard")
-# -------------------------------------------------
-# Search Products
-# -------------------------------------------------
+
 @app.route("/search", methods=["GET", "POST"])
 def search():
 
@@ -354,10 +327,6 @@ def search():
         products=products
     )
 
-
-# -------------------------------------------------
-# Wishlist
-# -------------------------------------------------
 @app.route("/wishlist")
 def wishlist():
 
@@ -440,9 +409,7 @@ def add_to_wishlist(product_id):
     return redirect("/dashboard")
 
 
-# -------------------------------------------------
-# Logout
-# -------------------------------------------------
+
 @app.route("/logout")
 def logout():
 
@@ -453,8 +420,5 @@ def logout():
     return redirect("/login")
 
 
-# -------------------------------------------------
-# Run Application
-# -------------------------------------------------
 if __name__ == "__main__":
     app.run(debug=True)
